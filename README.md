@@ -2,8 +2,6 @@
 
 个人技术笔记博客。从 Hexo 迁移而来的 **React SPA**，视觉语言为 **暗色杂志 · 黑金编辑风**（near-black ink + warm white + 单一 amber gold + Playfair Display / Source Serif 4 + 直角卡片）。
 
-线上地址：<https://xuanz54.github.io/>
-
 ## 特性
 
 - **内容管线**：`content/posts/*.md`（front-matter）→ 灰matter 解析 → marked 渲染 → Shiki 高亮
