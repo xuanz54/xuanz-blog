@@ -4,53 +4,69 @@
 
 ## 界面预览
 
-截图目录：[`docs/screenshots/`](./docs/screenshots)（暗色 · 1440×900）。重截：`node scripts/shoot-screenshots.mjs`（需 dev server 在 `:5173`）。
+截图目录：[`docs/screenshots/`](./docs/screenshots)（暗色）与 [`docs/screenshots/light/`](./docs/screenshots/light)（浅色），均为 1440×900。重截两种主题：`node scripts/shoot-screenshots.mjs`（需 dev server 在 `:5173`）。
 
 ### 首页
 
 黑金 hero + 一言告示板 + 最新文章列表。
 
-![首页](./docs/screenshots/home.png)
+| 暗色 | 浅色 |
+|---|---|
+| ![首页（暗色）](./docs/screenshots/home.png) | ![首页（浅色）](./docs/screenshots/light/home.png) |
 
 ### 文章页
 
 TOC、阅读进度环、字数/时长、标签、代码高亮。
 
-![文章页](./docs/screenshots/post.png)
+| 暗色 | 浅色 |
+|---|---|
+| ![文章页（暗色）](./docs/screenshots/post.png) | ![文章页（浅色）](./docs/screenshots/light/post.png) |
 
 ### 归档
 
 按年份筛选，时间线式列表。
 
-![归档](./docs/screenshots/archives.png)
+| 暗色 | 浅色 |
+|---|---|
+| ![归档（暗色）](./docs/screenshots/archives.png) | ![归档（浅色）](./docs/screenshots/light/archives.png) |
 
 ### 分类
 
 分类卡片 + 占比进度条。
 
-![分类](./docs/screenshots/categories.png)
+| 暗色 | 浅色 |
+|---|---|
+| ![分类（暗色）](./docs/screenshots/categories.png) | ![分类（浅色）](./docs/screenshots/light/categories.png) |
 
 ### 标签
 
 标签云（可切换图谱视图）。
 
-![标签](./docs/screenshots/tags.png)
+| 暗色 | 浅色 |
+|---|---|
+| ![标签（暗色）](./docs/screenshots/tags.png) | ![标签（浅色）](./docs/screenshots/light/tags.png) |
 
 ### 搜索
 
 实时联想，支持 `/search/?q=` 分享 URL 与 Ctrl/⌘K 命令面板。
 
-![搜索](./docs/screenshots/search.png)
+| 暗色 | 浅色 |
+|---|---|
+| ![搜索（暗色）](./docs/screenshots/search.png) | ![搜索（浅色）](./docs/screenshots/light/search.png) |
 
 ### 关于
 
 Markdown 渲染 + 侧栏目录。
 
-![关于](./docs/screenshots/about.png)
+| 暗色 | 浅色 |
+|---|---|
+| ![关于（暗色）](./docs/screenshots/about.png) | ![关于（浅色）](./docs/screenshots/light/about.png) |
 
 ### 404
 
-![404](./docs/screenshots/404.png)
+| 暗色 | 浅色 |
+|---|---|
+| ![404（暗色）](./docs/screenshots/404.png) | ![404（浅色）](./docs/screenshots/light/404.png) |
 
 ## 特性
 
@@ -102,7 +118,7 @@ xuanz-blog/
 │   ├── build-seo.mjs        # 构建后生成 sitemap / atom / 404
 │   ├── shoot-screenshots.mjs # README 截图
 │   └── rename-posts.mjs     # 迁移工具
-├── docs/screenshots/        # README 用页面截图
+├── docs/screenshots/        # README 用页面截图（暗色 + light/ 浅色）
 ├── src/
 │   ├── components/      # 页面与文章组件
 │   ├── config/site.ts   # 站点配置（唯一入口）

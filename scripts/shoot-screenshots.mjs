@@ -6,10 +6,8 @@ import puppeteer from 'puppeteer-core'
 const CHROME = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
 const BASE = process.env.SHOT_BASE || 'http://127.0.0.1:5173'
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
-const OUT = join(ROOT, 'docs', 'screenshots')
+const OUT_ROOT = join(ROOT, 'docs', 'screenshots')
 const W = 1440
-
-mkdirSync(OUT, { recursive: true })
 
 const gitSlug = encodeURIComponent('Git的使用')
 const pages = [
@@ -23,6 +21,8 @@ const pages = [
   { name: '404', path: '/no-such-page/', h: 720, wait: 'body' },
 ]
 
+const themes = ['dark', 'light']
+
 const browser = await puppeteer.launch({
   executablePath: CHROME,
   headless: true,
@@ -31,40 +31,46 @@ const browser = await puppeteer.launch({
 })
 
 let ok = 0
+const total = pages.length * themes.length
 try {
   const page = await browser.newPage()
-  await page.emulateMediaFeatures([
-    { name: 'prefers-reduced-motion', value: 'reduce' },
-    { name: 'prefers-color-scheme', value: 'dark' },
-  ])
-  await page.evaluateOnNewDocument(() => {
-    try {
-      localStorage.setItem('xuanz-theme', 'dark')
-    } catch {
-      /* ignore */
-    }
-    document.documentElement.classList.add('dark')
-  })
+  for (const theme of themes) {
+    const out = theme === 'dark' ? OUT_ROOT : join(OUT_ROOT, theme)
+    mkdirSync(out, { recursive: true })
 
-  for (const item of pages) {
-    const file = join(OUT, `${item.name}.png`)
-    await page.setViewport({ width: W, height: item.h, deviceScaleFactor: 1 })
-    await page.goto(BASE + item.path, { waitUntil: 'networkidle0', timeout: 45000 })
-    await page.evaluate(() => {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('xuanz-theme', 'dark')
-    })
-    try {
-      await page.waitForSelector(item.wait, { timeout: 8000 })
-    } catch {
-      /* keep going */
+    await page.emulateMediaFeatures([
+      { name: 'prefers-reduced-motion', value: 'reduce' },
+      { name: 'prefers-color-scheme', value: theme },
+    ])
+    await page.evaluateOnNewDocument((t) => {
+      try {
+        localStorage.setItem('xuanz-theme', t)
+      } catch {
+        /* ignore */
+      }
+      document.documentElement.classList.toggle('dark', t === 'dark')
+    }, theme)
+
+    for (const item of pages) {
+      const file = join(out, `${item.name}.png`)
+      await page.setViewport({ width: W, height: item.h, deviceScaleFactor: 1 })
+      await page.goto(BASE + item.path, { waitUntil: 'networkidle0', timeout: 45000 })
+      await page.evaluate((t) => {
+        document.documentElement.classList.toggle('dark', t === 'dark')
+        localStorage.setItem('xuanz-theme', t)
+      }, theme)
+      try {
+        await page.waitForSelector(item.wait, { timeout: 8000 })
+      } catch {
+        /* keep going */
+      }
+      await new Promise((r) => setTimeout(r, 500))
+      await page.screenshot({ path: file, type: 'png' })
+      ok++
+      console.log(`OK ${theme}/${item.name} ${item.path}`)
     }
-    await new Promise((r) => setTimeout(r, 500))
-    await page.screenshot({ path: file, type: 'png' })
-    ok++
-    console.log(`OK ${item.name} ${item.path}`)
   }
 } finally {
   await browser.close()
 }
-console.log(`done ${ok}/${pages.length}`)
+console.log(`done ${ok}/${total}`)
