@@ -2,6 +2,56 @@
 
 个人技术笔记博客。从 Hexo 迁移而来的 **React SPA**，视觉语言为 **暗色杂志 · 黑金编辑风**（near-black ink + warm white + 单一 amber gold + Playfair Display / Source Serif 4 + 直角卡片）。
 
+## 界面预览
+
+截图目录：[`docs/screenshots/`](./docs/screenshots)（暗色 · 1440×900）。重截：`node scripts/shoot-screenshots.mjs`（需 dev server 在 `:5173`）。
+
+### 首页
+
+黑金 hero + 一言告示板 + 最新文章列表。
+
+![首页](./docs/screenshots/home.png)
+
+### 文章页
+
+TOC、阅读进度环、字数/时长、标签、代码高亮。
+
+![文章页](./docs/screenshots/post.png)
+
+### 归档
+
+按年份筛选，时间线式列表。
+
+![归档](./docs/screenshots/archives.png)
+
+### 分类
+
+分类卡片 + 占比进度条。
+
+![分类](./docs/screenshots/categories.png)
+
+### 标签
+
+标签云（可切换图谱视图）。
+
+![标签](./docs/screenshots/tags.png)
+
+### 搜索
+
+实时联想，支持 `/search/?q=` 分享 URL 与 Ctrl/⌘K 命令面板。
+
+![搜索](./docs/screenshots/search.png)
+
+### 关于
+
+Markdown 渲染 + 侧栏目录。
+
+![关于](./docs/screenshots/about.png)
+
+### 404
+
+![404](./docs/screenshots/404.png)
+
 ## 特性
 
 - **内容管线**：`content/posts/*.md`（front-matter）→ 灰matter 解析 → marked 渲染 → Shiki 高亮
@@ -49,8 +99,10 @@ xuanz-blog/
 │   └── posts.manifest.json
 ├── public/              # 静态资源（favicon、图片、打赏码、robots.txt）
 ├── scripts/
-│   ├── build-seo.mjs    # 构建后生成 sitemap / atom / 404
-│   └── rename-posts.mjs # 迁移工具
+│   ├── build-seo.mjs        # 构建后生成 sitemap / atom / 404
+│   ├── shoot-screenshots.mjs # README 截图
+│   └── rename-posts.mjs     # 迁移工具
+├── docs/screenshots/        # README 用页面截图
 ├── src/
 │   ├── components/      # 页面与文章组件
 │   ├── config/site.ts   # 站点配置（唯一入口）
